@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Withdraw Funds</title>
+<style>
+  body {
+    background-color: #0a0a1a;
+    color: #d4af37;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  h1 {
+    color: #d4af37;
+    margin-bottom: 20px;
+  }
+  form {
+    background-color: #111;
+    padding: 30px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 0 10px rgba(212,175,55,0.3);
+  }
+  label {
+    display: block;
+    margin-top: 15px;
+    color: #00ff99;
+    font-size: 0.9rem;
+  }
+  input, select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background-color: #222;
+    color: #fff;
+  }
+  input[readonly] {
+    background-color: #222;
+    color: #ccc;
+  }
+  button {
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px;
+    background-color: #00ff99;
+    color: #0a0a1a;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  button:hover {
+    background-color: #d4af37;
+  }
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease;
+  }
+  .popup.active {
+    visibility: visible;
+    opacity: 1;
+  }
+  .popup-content {
+    background-color: #111;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    color: #d4af37;
+    box-shadow: 0 0 15px rgba(0,255,153,0.3);
+  }
+  .popup-content p {
+    margin-bottom: 15px;
+    color: #ffcc00;
+  }
+  .close-btn {
+    background-color: #d4af37;
+    color: #0a0a1a;
+    border: none;
+    margin-top: 15px;
+    padding: 10px 25px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .close-btn:hover {
+    background-color: #00ff99;
+  }
+  .back-btn {
+    margin-top: 15px;
+    background-color: #d4af37;
+    color: #0a0a1a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .back-btn:hover {
+    background-color: #00ff99;
+  }
+</style>
+</head>
+<body>
+<h1 id="pageTitle">Withdrawal Details</h1>
+<form id="withdrawForm">
+  <label id="labelAccountNumber">Account Number:</label>
+  <input type="text" placeholder="Enter account number" required>
+
+  <label id="labelAccountName">Account Name:</label>
+  <input type="text" placeholder="Enter account name" required>
+
+  <label id="labelBank">Select Bank:</label>
+  <select required>
+    <option value="">-- Select Bank --</option>
+    <option>Revolut</option>
+    <option>IBAN</option>
+    <option>Alior</option>
+    <option>PKO</option>
+    <option>Blik</option>
+  </select>
+
+  <label id="labelAmount">Amount:</label>
+  <input type="text" value="22,500.00 PLN" readonly>
+
+  <button type="button" id="withdrawBtn" onclick="showPopup()">Withdraw</button>
+</form>
+
+<button class="back-btn" onclick="window.location.href='index.html'">Back</button>
+
+<div class="popup" id="popup">
+  <div class="popup-content">
+    <p id="popupText">Deposit a fee of 3,700 PLN to process withdrawal.</p>
+    <button class="close-btn" onclick="closePopup()">OK</button>
+  </div>
+</div>
+
+<script>
+  const userLang = navigator.language || navigator.userLanguage;
+  if (userLang.startsWith('pl')) {
+    document.getElementById('pageTitle').textContent = "Szczegóły Wypłaty";
+    document.getElementById('labelAccountNumber').textContent = "Numer konta:";
+    document.getElementById('labelAccountName').textContent = "Nazwa konta:";
+    document.getElementById('labelBank').textContent = "Wybierz bank:";
+    document.getElementById('labelAmount').textContent = "Kwota:";
+    document.getElementById('withdrawBtn').textContent = "Wypłać";
+    document.querySelector('.back-btn').textContent = "Powrót";
+
+    // Format amounts in Polish style
+    const amountField = document.querySelector('input[readonly]');
+    amountField.value = new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN' }).format(22500);
+
+    const popupText = document.getElementById('popupText');
+    popupText.textContent = `Wpłać opłatę w wysokości ${new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN' }).format(3700)}, aby przetworzyć wypłatę.`;
+  }
+
+  function showPopup() {
+    document.getElementById('popup').classList.add('active');
+  }
+  function closePopup() {
+    document.getElementById('popup').classList.remove('active');
+  }
+</script>
+</body>
+  </html>
