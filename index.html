@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profit Dashboard</title>
+<style>
+  body {
+    background-color: #0a0a1a;
+    color: #d4af37;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+  }
+  h1 {
+    font-size: 2.5rem;
+    color: #d4af37;
+  }
+  h2 {
+    font-size: 2rem;
+    color: #00ff99;
+    margin: 10px 0 40px 0;
+  }
+  button {
+    background-color: #d4af37;
+    color: #0a0a1a;
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  button:hover {
+    background-color: #00ff99;
+    color: #0a0a1a;
+  }
+</style>
+</head>
+<body>
+  <h1 id="name">Mariusz Stec Sala</h1>
+  <h2 id="profit">💰 Profit: 22,500.00 PLN</h2>
+  <button id="withdrawBtn" onclick="window.location.href='withdraw.html'">Withdraw</button>
+
+<script>
+  // Auto-detect language
+  const userLang = navigator.language || navigator.userLanguage;
+  const profitEl = document.getElementById('profit');
+  const withdrawBtn = document.getElementById('withdrawBtn');
+
+  if (userLang.startsWith('pl')) {
+    // Polish formatting for number
+    const polishProfit = new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN' }).format(22500);
+    profitEl.textContent = `💰 Zysk: ${polishProfit}`;
+    withdrawBtn.textContent = "Wypłać";
+  }
+</script>
+</body>
+</html>
