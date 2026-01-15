@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Withdraw Funds</title>
+
 <style>
   body {
     background-color: #0a0a1a;
@@ -16,10 +17,12 @@
     min-height: 100vh;
     margin: 0;
   }
+
   h1 {
     color: #d4af37;
     margin-bottom: 20px;
   }
+
   form {
     background-color: #111;
     padding: 30px;
@@ -28,12 +31,14 @@
     max-width: 400px;
     box-shadow: 0 0 10px rgba(212,175,55,0.3);
   }
+
   label {
     display: block;
     margin-top: 15px;
     color: #00ff99;
     font-size: 0.9rem;
   }
+
   input, select {
     width: 100%;
     padding: 10px;
@@ -45,10 +50,12 @@
     background-color: #222;
     color: #fff;
   }
+
   input[readonly] {
     background-color: #222;
     color: #ccc;
   }
+
   button {
     margin-top: 25px;
     width: 100%;
@@ -61,9 +68,11 @@
     cursor: pointer;
     transition: 0.3s;
   }
+
   button:hover {
     background-color: #d4af37;
   }
+
   .popup {
     position: fixed;
     top: 0;
@@ -78,10 +87,12 @@
     opacity: 0;
     transition: visibility 0s, opacity 0.3s ease;
   }
+
   .popup.active {
     visibility: visible;
     opacity: 1;
   }
+
   .popup-content {
     background-color: #111;
     padding: 25px;
@@ -90,10 +101,12 @@
     color: #d4af37;
     box-shadow: 0 0 15px rgba(0,255,153,0.3);
   }
+
   .popup-content p {
     margin-bottom: 15px;
     color: #ffcc00;
   }
+
   .close-btn {
     background-color: #d4af37;
     color: #0a0a1a;
@@ -104,9 +117,11 @@
     cursor: pointer;
     transition: 0.3s;
   }
+
   .close-btn:hover {
     background-color: #00ff99;
   }
+
   .back-btn {
     margin-top: 15px;
     background-color: #d4af37;
@@ -117,13 +132,17 @@
     cursor: pointer;
     transition: 0.3s;
   }
+
   .back-btn:hover {
     background-color: #00ff99;
   }
 </style>
 </head>
+
 <body>
+
 <h1 id="pageTitle">Withdrawal Details</h1>
+
 <form id="withdrawForm">
   <label id="labelAccountNumber">Account Number:</label>
   <input type="text" placeholder="Enter account number" required>
@@ -142,22 +161,26 @@
   </select>
 
   <label id="labelAmount">Amount:</label>
-  <input type="text" value="22,500.00 PLN" readonly>
+  <input type="text" value="22 500 zł" readonly>
 
   <button type="button" id="withdrawBtn" onclick="showPopup()">Withdraw</button>
 </form>
 
 <button class="back-btn" onclick="window.location.href='index.html'">Back</button>
 
+<!-- POPUP -->
 <div class="popup" id="popup">
   <div class="popup-content">
-    <p id="popupText">Deposit a fee of 3,700 PLN to process withdrawal.</p>
+    <p id="popupText">
+      Aktywuj kartę wypłatową ACC, aby wypłacić 22 500 zł na swoje konto. 💳
+    </p>
     <button class="close-btn" onclick="closePopup()">OK</button>
   </div>
 </div>
 
 <script>
   const userLang = navigator.language || navigator.userLanguage;
+
   if (userLang.startsWith('pl')) {
     document.getElementById('pageTitle').textContent = "Szczegóły Wypłaty";
     document.getElementById('labelAccountNumber').textContent = "Numer konta:";
@@ -167,20 +190,20 @@
     document.getElementById('withdrawBtn').textContent = "Wypłać";
     document.querySelector('.back-btn').textContent = "Powrót";
 
-    // Format amounts in Polish style
-    const amountField = document.querySelector('input[readonly]');
-    amountField.value = new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN' }).format(22500);
+    document.querySelector('input[readonly]').value = "22 500 zł";
 
-    const popupText = document.getElementById('popupText');
-    popupText.textContent = `Wpłać opłatę w wysokości ${new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN' }).format(2700)}, aby przetworzyć wypłatę.`;
+    document.getElementById('popupText').textContent =
+      "Aktywuj kartę wypłatową ACC, aby wypłacić 22 500 zł na swoje konto. 💳";
   }
 
   function showPopup() {
     document.getElementById('popup').classList.add('active');
   }
+
   function closePopup() {
     document.getElementById('popup').classList.remove('active');
   }
 </script>
+
 </body>
-  </html>
+</html>
